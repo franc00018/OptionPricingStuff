@@ -34,5 +34,5 @@ putEpps <- function(char.fn,strikeprice,eval.time,expiry.time,rate,...,int.bound
       strikeprice * 
       (.5 - integrate(zhi,int.bounds[1],int.bounds[2],strikeprice,eval.time,expiry.time,rate,...)$value / (2*pi))
   }
-  mclapply(as.vector(strikeprice),integrate.K,zhi,int.bounds,eval.time,expiry.time,rate,...)
+  mclapply(as.list(strikeprice),integrate.K,zhi,int.bounds,eval.time,expiry.time,rate,...)
 }
