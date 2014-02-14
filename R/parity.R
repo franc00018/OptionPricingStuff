@@ -8,7 +8,6 @@
 
 #' Put-Call Parity
 #' @param optionvalue Option price
-#' @param stockprice Stock price
 #' @param strikeprice Strike price
 #' @param eval.time Evaluation time
 #' @param expiry.time Expiry time
@@ -17,15 +16,15 @@
 #' @return Option price
 #' 
 #' @author François Pelletier
-parity <- function(optionvalue,stockprice,strikeprice,eval.time,expiry.time,rate,toPut=TRUE)
+parity <- function(optionvalue,strikeprice,eval.time,expiry.time,rate,toPut=TRUE)
 {
 	if(toPut)
 	{
-		optionvalue-stockprice+strikeprice*zerobond(eval.time,expiry.time,rate)
+		optionvalue-1+strikeprice*zerobond(eval.time,expiry.time,rate)
 		
 	}
 	else
 	{
-		stockprice+optionvalue-strikeprice*zerobond(eval.time,expiry.time,rate)
+		1+optionvalue-strikeprice*zerobond(eval.time,expiry.time,rate)
 	}
 }

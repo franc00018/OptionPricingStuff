@@ -4,7 +4,8 @@ Version: 0.1
 Date: 2014-02-11
 Author: Francois Pelletier
 Maintainer: Francois Pelletier <francois@francoispelletier.org>
-Description: This is a package gathering different functions to work with option pricing
+Description: This is a package gathering different functions to work with
+    option pricing
 Suggests:
     MASS
 License: LGPL-3
