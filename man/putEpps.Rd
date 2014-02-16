@@ -2,15 +2,15 @@
 \alias{putEpps}
 \title{European put option pricing using characteristic function}
 \usage{
-putEpps(char.fn, strikeprice, eval.time, expiry.time, rate, ...,
+putEpps(strikeprice, char.fn, eval.time, expiry.time, rate, ...,
   int.bounds = c(-Inf, Inf))
 }
 \arguments{
-  \item{char.fn}{Characteristic function of the price level
-  at expiry time}
-
   \item{strikeprice}{Strike price, relative to a unit stock
   price}
+
+  \item{char.fn}{Characteristic function of the price level
+  at expiry time}
 
   \item{eval.time}{Evaluation time}
 
