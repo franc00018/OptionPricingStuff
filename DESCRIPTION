@@ -8,4 +8,6 @@ Description: This is a package gathering different functions to work with
     option pricing
 Suggests:
     MASS
+Depends:
+    multicore
 License: LGPL-3

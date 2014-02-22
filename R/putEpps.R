@@ -8,14 +8,14 @@
 #' European put option pricing using characteristic function 
 #' 
 #' As seen in Epps (2009)
-#' @param strikeprice Strike price, relative to a unit stock price
+#' @param strikeprice Strike price vector, relative to a unit stock price
 #' @param char.fn Characteristic function of the price level at expiry time
 #' @param eval.time Evaluation time
 #' @param expiry.time Expiry time
 #' @param rate Continuously compounded interest rate (force of interest)
 #' @param ... Parameters of the characteristic function
 #' @param int.bounds Integration bounds for the integrate() method used. Defaults to infinite bounds.
-#' @return European put option price
+#' @return European put option price vector
 #' 
 #' @author Francois Pelletier
 putEpps <- function(strikeprice,char.fn,eval.time,expiry.time,rate,...,int.bounds=c(-Inf,Inf))

@@ -6,8 +6,8 @@ putEpps(strikeprice, char.fn, eval.time, expiry.time, rate, ...,
   int.bounds = c(-Inf, Inf))
 }
 \arguments{
-  \item{strikeprice}{Strike price, relative to a unit stock
-  price}
+  \item{strikeprice}{Strike price vector, relative to a
+  unit stock price}
 
   \item{char.fn}{Characteristic function of the price level
   at expiry time}
@@ -25,7 +25,7 @@ putEpps(strikeprice, char.fn, eval.time, expiry.time, rate, ...,
   method used. Defaults to infinite bounds.}
 }
 \value{
-European put option price
+European put option price vector
 }
 \description{
 As seen in Epps (2009)
