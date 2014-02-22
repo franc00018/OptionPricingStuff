@@ -20,7 +20,7 @@ EppsPulley.test <- function(x,alpha=0.05)
 {
 	## Statistics
 	n <- length(x)
-	if (n<10) stop("n doit être supérieur à 10")
+	if (n<10) stop("n must be > 10")
 	xbar <- mean(x)
 	S <- sd(x)
 	## Constants
@@ -37,7 +37,7 @@ EppsPulley.test <- function(x,alpha=0.05)
 	Z <- gamma+delta*log((Tmod-xi)/(xi+lambda-Tmod))
 	Pvalue <- 1-pnorm(Z)
 	reject <- Pvalue<alpha
-	cat(sprintf("\nTest de normalité de Epps-Pulley\n\n T: %f\n T*: %f\np-value: %f\n\n",T,Tmod,Pvalue))
+	cat(sprintf("\nEpps-Pulley Normality test\n\n T: %f\n T*: %f\np-value: %f\n\n",T,Tmod,Pvalue))
 	list(Tstat=T,Tmod=Tmod,Zscore=Z,Pvalue=Pvalue,Reject=reject)
 }
 
