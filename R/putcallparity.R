@@ -21,7 +21,6 @@ putcallparity <- function(optionvalue,strikeprice,eval.time,expiry.time,rate,toP
 	if(toPut)
 	{
 		return(optionvalue-1+strikeprice*zerobond(eval.time,expiry.time,rate))
-		
 	}
 	else
 	{
