@@ -16,7 +16,7 @@
 #' @param ... Parameters of the characteristic function
 #' @param fft.control Control parameters list for the FFT discretization
 #' @return A European call option price vector
-#' 
+#' @export callCarrMadan
 #' @author Francois Pelletier
 callCarrMadan <- function(strikeprice,char.fn,eval.time,expiry.time,rate,alpha,
 		...,fft.control=list(N=2^14,eta=.1))

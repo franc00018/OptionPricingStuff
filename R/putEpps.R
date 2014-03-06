@@ -16,7 +16,7 @@
 #' @param ... Parameters of the characteristic function
 #' @param int.bounds Integration bounds for the integrate() method used. Defaults to infinite bounds.
 #' @return European put option price vector
-#' 
+#' @export putEpps
 #' @author Francois Pelletier
 putEpps <- function(strikeprice,char.fn,eval.time,expiry.time,rate,...,int.bounds=c(-Inf,Inf))
 {

@@ -14,7 +14,7 @@
 #' @param x Sample
 #' @param alpha Tolerance level
 #' @return A list containing the test statistics
-#' 
+#' @export EppsPulley.test
 #' @author François Pelletier
 EppsPulley.test <- function(x,alpha=0.05)
 {

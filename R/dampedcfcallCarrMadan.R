@@ -17,15 +17,15 @@
 #' @param moneyness Boolean for moneyness of call option 
 #' (TRUE if strike price is lower than stock price)
 #' @return Characteristic function value
-#' 
+#' @export dampedcfcallCarrMadan
 #' @author Francois Pelletier
 dampedcfcallCarrMadan <- function(u,char.fn,eval.time,expiry.time,rate,alpha,...,moneyness=TRUE)
 {
 	if(moneyness)
 	{
-		exp(-rate*(expiry.time-eval.time))*
+		return(exp(-rate*(expiry.time-eval.time))*
 				char.fn(u-1i*(alpha+1),expiry.time-eval.time,...) / 
-				(alpha^2+alpha-u^2+1i*u*(2*alpha+1))
+				(alpha^2+alpha-u^2+1i*u*(2*alpha+1)))
 	}
 	else
 	{
@@ -35,8 +35,8 @@ dampedcfcallCarrMadan <- function(u,char.fn,eval.time,expiry.time,rate,alpha,...
 					(1/(1+1i*u)-exp(rate*(expiry.time-eval.time))/
 						(1i*u)-char.fn(u-1i,expiry.time-eval.time,...)/(u^2-1i*u))
 		}
-		(auxiliairyf(u-1i*alpha,char.fn,eval.time,expiry.time,rate,alpha,...)-
-				auxiliairyf(u+1i*alpha,char.fn,eval.time,expiry.time,rate,alpha,...))/2
+		return((auxiliairyf(u-1i*alpha,char.fn,eval.time,expiry.time,rate,alpha,...)-
+				auxiliairyf(u+1i*alpha,char.fn,eval.time,expiry.time,rate,alpha,...))/2)
 	}
 	
 }

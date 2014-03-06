@@ -1,8 +1,2 @@
-export(callCarrMadan,
-dampedcfcallCarrMadan,
-EppsPulley.test,
-parity,
-putEpps,
-putHeston,
-zerobond
-)
+export(dampedcfcallCarrMadan)
+export(putcallparity)

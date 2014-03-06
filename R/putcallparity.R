@@ -14,17 +14,17 @@
 #' @param rate Continuously compounded interest rate (force of interest)
 #' @param toPut Boolean, Call to Put or Put to Call ?
 #' @return Option price
-#' 
+#' @export putcallparity
 #' @author François Pelletier
-parity <- function(optionvalue,strikeprice,eval.time,expiry.time,rate,toPut=TRUE)
+putcallparity <- function(optionvalue,strikeprice,eval.time,expiry.time,rate,toPut=TRUE)
 {
 	if(toPut)
 	{
-		optionvalue-1+strikeprice*zerobond(eval.time,expiry.time,rate)
+		return(optionvalue-1+strikeprice*zerobond(eval.time,expiry.time,rate))
 		
 	}
 	else
 	{
-		1+optionvalue-strikeprice*zerobond(eval.time,expiry.time,rate)
+		return(1+optionvalue-strikeprice*zerobond(eval.time,expiry.time,rate))
 	}
 }

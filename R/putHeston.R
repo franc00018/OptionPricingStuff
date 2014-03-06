@@ -14,7 +14,7 @@
 #' @param rate Continuously compounded interest rate (force of interest)
 #' @param ... Parameters of the distribution function dist.fn
 #' @return European put option price
-#' 
+#' @export putHeston
 #' @author Francois Pelletier
 putHeston <- function(strikeprice,dist.fn,ess.dist.fn,eval.time,expiry.time,rate,...)
 {

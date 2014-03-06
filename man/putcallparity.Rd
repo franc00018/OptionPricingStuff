@@ -1,8 +1,9 @@
-\name{parity}
-\alias{parity}
+\name{putcallparity}
+\alias{putcallparity}
 \title{Put-Call Parity}
 \usage{
-parity(optionvalue, strikeprice, eval.time, expiry.time, rate, toPut = TRUE)
+putcallparity(optionvalue, strikeprice, eval.time, expiry.time, rate,
+  toPut = TRUE)
 }
 \arguments{
   \item{optionvalue}{Option price}

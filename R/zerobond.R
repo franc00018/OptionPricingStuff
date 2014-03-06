@@ -15,7 +15,7 @@
 #' @param rate Continuously compounded interest rate (force of interest)
 #' @param face Face value
 #' @return Actualised price of bond
-#' 
+#' @export zerobond
 #' @author François Pelletier
 
 zerobond <- function(eval.time,expiry.time,rate,face=1)
