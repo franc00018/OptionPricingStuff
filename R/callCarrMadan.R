@@ -32,7 +32,7 @@ callCarrMadan <- function(strikeprice,char.fn,eval.time,expiry.time,rate,alpha,
 	# Vector of indices
 	jvec <- 1:fft.control$N
 	# Simpson's hypothesis
-	simpsonh <- ((dampedcfcallCarrMadan(u,char.fn,eval.time,expiry.time,rate,alpha,moneyness,param)*
+	simpsonh <- ((dampedcfcallCarrMadan(u,char.fn,eval.time,expiry.time,rate,alpha,...,moneyness)*
 					exp(1i*u*b)*fft.control$eta)/3)*
 			(3+(-1)^jvec+((jvec-1)==0))
 	# Log-price vector
