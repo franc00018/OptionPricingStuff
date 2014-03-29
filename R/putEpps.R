@@ -21,18 +21,18 @@
 putEpps <- function(strikeprice,char.fn,eval.time,expiry.time,rate,...,int.bounds=c(-Inf,Inf))
 {
   # function to integrate (zhi)
-  zhi <- function(x,char.fn,strikeprice,eval.time,expiry.time,rate,...)
+  zhi <- function(x,char.fn,strikeprice,eval.time,expiry.time,...)
   {
     Re(strikeprice^{-1i*x} * 
-         char.fn(x,eval.time,expiry.time,...) / 
+         char.fn(x,expiry.time-eval.time,...) / 
          (x*(1i+x)))
   }
   # function to integrate with strike price as first parameter
-  integrate.K <- function(strikeprice,zhi,int.bounds,eval.time,expiry.time,rate,...)
+  integrate.K <- function(strikeprice,zhi,char.fn,int.bounds,eval.time,expiry.time,rate,...)
   {
     exp(-rate*(expiry.time-eval.time)) * 
       strikeprice * 
-      (.5 - integrate(zhi,int.bounds[1],int.bounds[2],strikeprice,eval.time,expiry.time,rate,...)$value / (2*pi))
+      (.5 - integrate(zhi,int.bounds[1],int.bounds[2],char.fn,strikeprice,eval.time,expiry.time,...)$value / (2*pi))
   }
-  mclapply(as.list(strikeprice),integrate.K,zhi,int.bounds,eval.time,expiry.time,rate,...)
+  mclapply(as.list(strikeprice),integrate.K,zhi,char.fn,int.bounds,eval.time,expiry.time,rate,...)
 }
