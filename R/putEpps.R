@@ -24,7 +24,7 @@ putEpps <- function(strikeprice,char.fn,eval.time,expiry.time,rate,...,int.bound
   zhi <- function(x,char.fn,strikeprice,eval.time,expiry.time,rate,...)
   {
     Re(strikeprice^{-1i*x} * 
-         char.fn(x,strikeprice,eval.time,expiry.time,rate,...) / 
+         char.fn(x,eval.time,expiry.time,...) / 
          (x*(1i+x)))
   }
   # function to integrate with strike price as first parameter
