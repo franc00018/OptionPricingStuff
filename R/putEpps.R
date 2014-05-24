@@ -18,21 +18,21 @@
 #' @return European put option price vector
 #' @export putEpps
 #' @author Francois Pelletier
-putEpps <- function(strikeprice,char.fn,eval.time,expiry.time,rate,...,int.bounds=c(-Inf,Inf))
+putEpps <- function(strikeprice,char.fn,param,eval.time,expiry.time,rate,...,int.bounds=c(-Inf,0))
 {
   # function to integrate (zhi)
-  zhi <- function(x,char.fn,strikeprice,eval.time,expiry.time,...)
+  zhi <- function(x,char.fn,param,strikeprice,eval.time,expiry.time,...)
   {
     Re(strikeprice^{-1i*x} * 
-         char.fn(x,expiry.time-eval.time,...) / 
+         char.fn(x,param,eval.time,expiry.time,...) / 
          (x*(1i+x)))
   }
   # function to integrate with strike price as first parameter
-  integrate.K <- function(strikeprice,zhi,char.fn,int.bounds,eval.time,expiry.time,rate,...)
+  integrate.K <- function(strikeprice,zhi,char.fn,param,int.bounds,eval.time,expiry.time,rate,...)
   {
     exp(-rate*(expiry.time-eval.time)) * 
       strikeprice * 
-      (.5 - integrate(zhi,int.bounds[1],int.bounds[2],char.fn,strikeprice,eval.time,expiry.time,...)$value / (2*pi))
+      (.5 - integrate(zhi,int.bounds[1],int.bounds[2],char.fn,param,strikeprice,eval.time,expiry.time,...)$value / (pi))
   }
-  mclapply(as.list(strikeprice),integrate.K,zhi,char.fn,int.bounds,eval.time,expiry.time,rate,...)
+  lapply(as.list(strikeprice),integrate.K,zhi,char.fn,param,int.bounds,eval.time,expiry.time,rate,...)
 }
