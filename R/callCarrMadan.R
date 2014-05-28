@@ -9,6 +9,7 @@
 #' Call price using the Carr-Madan damping parameter and FFT
 #' @param strikeprice Vector of strike prices, relative to a unit stock price
 #' @param char.fn Characteristic function of the log-price process
+#' @param param Characteristic function parameters
 #' @param eval.time Evaluation time
 #' @param expiry.time Expiry time
 #' @param rate Continuously compounded interest rate (force of interest)
@@ -18,11 +19,9 @@
 #' @return A European call option price vector
 #' @export callCarrMadan
 #' @author Francois Pelletier
-callCarrMadan <- function(strikeprice,char.fn,eval.time,expiry.time,rate,alpha,
-		...,fft.control=list(N=2^14,eta=.1))
+callCarrMadan <- function(strikeprice,char.fn,param,eval.time,expiry.time,rate,alpha,
+		...,fft.control=list(N=2^10,eta=.1))
 {
-	# Determine moneyness
-	moneyness <- strikeprice < 1
 	# Discretization step for Fourier transform
 	lambda <- lambda <- (2*pi) / (fft.control$N*fft.control$eta) 
 	# Evaluation points of the damped characteristic function of the call option log-price
@@ -32,26 +31,25 @@ callCarrMadan <- function(strikeprice,char.fn,eval.time,expiry.time,rate,alpha,
 	# Vector of indices
 	jvec <- 1:fft.control$N
 	# Simpson's hypothesis
-	simpsonh <- ((dampedcfcallCarrMadan(u,char.fn,eval.time,expiry.time,rate,alpha,...,moneyness)*
-					exp(1i*u*b)*fft.control$eta)/3)*
-			(3+(-1)^jvec+((jvec-1)==0))
+	simpsonh_money <- ((dampedcfcallCarrMadan(u,char.fn,param,eval.time,expiry.time,rate,alpha,moneyness=TRUE)*
+			exp(1i*u*b)*fft.control$eta)/3)*(3+(-1)^jvec+((jvec-1)==0))
+	simpsonh_nomoney <- ((dampedcfcallCarrMadan(u,char.fn,param,eval.time,expiry.time,rate,alpha,moneyness=FALSE)*
+			exp(1i*u*b)*fft.control$eta)/3)*(3+(-1)^jvec+((jvec-1)==0))
 	# Log-price vector
 	ku <- seq(-b,(fft.control$N-1)*lambda-b,lambda)
-	# Log-price of the call option vector
-	if(moneyness)
-	{
-		callvec <- Re((exp(-alpha*ku)*fft(simpsonh))/pi)
-	}
-	else
-	{
-		callvec <- fft(simpsonh)/(sinh(alpha*ku)*pi)
-	}
 	# Price vector
 	Ku <- exp(ku)
+
+	# Log-price of the call option vector
+	callvec_money <- Re((exp(-alpha*ku)*fft(simpsonh_money))/pi)
+	callvec_nomoney <- Re(fft(simpsonh_nomoney)/(sinh(alpha*ku)*pi))
+	callvec <- callvec_money * (Ku < 1) + callvec_nomoney * (Ku >= 1)
+	
 	# Index to select subset of prices in the strikeprice vector
-	Kindex <- Ku>=(min(strikeprice)-1) & Ku<=(max(strikeprice)+1)
+	Kindex <- Ku>=(min(strikeprice)-1) & Ku<=(max(strikeprice)+1) & abs(callvec) < 10^9 & abs(callvec) > 10^-9
+	
 	# We use a smooth spline to get the prices for the strikeprice vector
-	sp0 <- smooth.spline(x=Ku[indice],y=callvec[indice])
+	sp0 <- smooth.spline(x=round(Ku[Kindex],digits=10),y=round(callvec[Kindex],digits=10))
 	predict(sp0,strikeprice)$y
 }
 	
