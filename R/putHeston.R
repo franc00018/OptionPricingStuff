@@ -16,10 +16,16 @@
 #' @return European put option price
 #' @export putHeston
 #' @author Francois Pelletier
-putHeston <- function(strikeprice,dist.fn,ess.dist.fn,eval.time,expiry.time,rate,...)
+putHeston <- function(param,strikeprice,dist.fn,eval.time,expiry.time,rate)
 {
-	exp(-rate*(expiry.time-eval.time)) * strikeprice*dist.fn(log(strikeprice),...) - 
-			ess.dist.fn(log(strikeprice),...)
+	exp(-rate*(expiry.time-eval.time)) * strikeprice*dist.fn(log(strikeprice),param,hEsscher=0) - 
+			dist.fn(log(strikeprice),param,hEsscher=1)
+}
+
+putHestonSaddle <- function(param,strikeprice,dist.fn1,dist.fn2,eval.time,expiry.time,rate)
+{
+	exp(-rate*(expiry.time-eval.time)) * strikeprice*dist.fn1(log(strikeprice),param) - 
+			dist.fn2(log(strikeprice),param)
 }
 
 
