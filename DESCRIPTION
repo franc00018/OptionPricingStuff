@@ -9,5 +9,5 @@ Description: This is a package gathering different functions to work with
 Suggests:
     MASS
 Depends:
-    multicore
+    parallel
 License: LGPL-3
